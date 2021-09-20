@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softbook</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+</head>
+
+<body>
+  @!component('cabecalho', {sessao: sessao})
+
+  <main>
+
+    @!component('home-login')
+
+  </main>
+</body>
+</html>

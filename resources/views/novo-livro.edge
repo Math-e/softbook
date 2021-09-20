@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softbook</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+</head>
+
+<body>
+  @!component('cabecalho', {sessao: sessao})
+
+  <main>
+    <div class="form-livro">
+      <form method="POST" action="/livros?_method=PUT">
+
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" required>
+        <br>
+        <label for="autor">Autor:</label>
+        <input type="text" name="autor" required>
+        <br>
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao" >
+        <br>
+        <label for="isbn">ISBN:</label>
+        <input type="text" name="isbn" required>
+        <br><br>
+
+        <button type="submit">Cadastrar livro</button>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>

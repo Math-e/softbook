@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softbook</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+
+  <script defer>
+    function filtrar() {
+
+      var td, i, txtValue, show
+      var input = document.getElementById("pesquisa")
+      var filter = input.value.toUpperCase()
+      var table = document.getElementById("tabela")
+      var tr = table.getElementsByTagName("tr")
+
+      for (i = 0; i < tr.length; i++) {
+        show = false
+
+        td = tr[i].getElementsByTagName("td")
+
+        for (x = 0; x < td.length; x++) {
+          txtValue = td[x].textContent || td[x].innerText
+
+          if (txtValue.toUpperCase().indexOf(filter) > -1)
+            show = true
+        }
+        if (show == false)
+          tr[i].style.display = "none"
+        else
+          tr[i].style.display = ""
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  @!component('cabecalho', {sessao: sessao})
+
+  <br>
+  <main>
+    <br>
+    <div class="menu">
+      <a href="/novolivro"><button>Cadastrar livro</button></a>
+
+
+      <input type="text" id="pesquisa" name="pesquisa" placeholder="Pesquisar" onkeyup="filtrar()">
+
+    </div>
+    <br><br>
+
+    <table id="tabela">
+      
+      <tr style="width: 100%;" >
+        <th style="width: 50%;" >
+          Título
+        </th>
+        <th style="width: 30%;" >
+          Autor
+        </th>
+        <th style="width: 20%;" >
+          ISBN
+        </th>
+      </tr>
+    
+      @each(livro in livros)
+
+      <tr>
+        <td style="width: 50%;" >
+          <a href="/livros/{{livro.id}}">{{livro.titulo}}</a>
+        </td>
+        <td style="width: 30%;">
+          {{livro.autor}}
+        </td>
+        <td style="width: 20%;">
+          {{livro.isbn}}
+        </td>
+      </tr>
+      @end
+
+    </table>
+
+
+
+  </main>
+</body>
+
+</html>

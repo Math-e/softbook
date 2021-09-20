@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softbook</title>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+  <script>
+    function editar() {
+      document.getElementById('dados').style.display = 'none'
+      document.getElementById('editar').style.display = 'flex'
+      document.getElementById('editar').classList = 'form-livro'
+      document.getElementById('aluguel').style.visibility = 'hidden'
+      document.getElementById('butEdit').style.visibility = 'hidden'
+    }
+
+    function deletar() {
+      document.getElementById('del').style.visibility = 'hidden'
+      document.getElementById('conf').style.visibility = 'visible'
+    }
+  </script>
+</head>
+
+<body>
+  @!component('cabecalho', {sessao: sessao})
+
+  <main>
+
+    <div id="dados">
+      <h1>{{livro.titulo}}</h1>
+      <br>
+      <h2>Por {{livro.autor}}</h2>
+      <br>
+      <h3>{{livro.descricao}}</h3>
+      <br>
+      <p>ISBN: {{livro.isbn}}</p>
+      <br>
+    </div>
+
+    <button id="butEdit" onclick="editar()">Editar livro</button>
+
+    <div id="editar" style="display: none;">
+      <form method="POST" action="/livros/{{livro.id}}">
+        <label for="titulo">Título:</label>
+        <input type="text" name="titulo" required>
+        <br>
+        <label for="autor">Autor:</label>
+        <input type="text" name="autor" required>
+        <br>
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao">
+        <br>
+        <label for="isbn">ISBN:</label>
+        <input type="text" name="isbn" required>
+        <br><br>
+        <button type="submit">Atualizar livro</button>
+      </form>
+    </div>
+
+    <div id="aluguel">
+      @if(aluguel)
+      Este livro está alugado até {{aluguel.fim}}
+      @else
+      <form method="POST" action="/aluguel?_method=PUT">
+        Este livro está disponível. Se quiser alugar, escolha quando deseja devolver:
+        <input type="datetime-local" name="fim" value="{{hora}}" required>
+        <input type="hidden" name="livro_id" value="{{livro.id}}">
+        <button type="submit">Alugar</button>
+      </form>
+    </div>
+    <br><br><br>
+
+    <button class="danger" id="del" onclick="deletar()">Apagar livro</button>
+    <form method="POST" action="/livros/{{livro.id}}?_method=DELETE">
+      <input type="hidden" name="id" value="{{livro.id}}">
+      <button class="danger" id="conf" style="visibility: hidden;" type="submit">Confirmar exclusão</button>
+    </form>
+    @end
+  </main>
+</body>
+
+</html>
