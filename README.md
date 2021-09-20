@@ -1,6 +1,8 @@
 # softbook
-Cadastro de aluguel de livros
+Gerência de aluguel de livros
 
 Usuários iniciais: 
+
 usuario1 | Senha12345
+
 usuario2 | SenhaForte!
